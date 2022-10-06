@@ -27,7 +27,7 @@ function Homepage() {
 		}));
 	};
 
-	const onInputChangeDebounce = _debounce(onInputChange, 200)
+	const onInputChangeDebounce = _debounce(onInputChange, 200);
 
 	const setForm = (item: any, value: any) => {
 		setFormField({
@@ -56,12 +56,14 @@ function Homepage() {
 			bounds.extend(marker2.position);
 			map.fitBounds(bounds);
 			setMarker([marker1, marker2]);
-		} else if (!formField.source) {
+		} 
+		if (!formField.source) {
 			if (marker[0]) marker[0].setMap(null);
-		} else if (!formField.destination) {
+		}
+		if (!formField.destination) {
 			if (marker[1]) marker[1].setMap(null);
-		}		
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [JSON.stringify(formField), map]);
 
 	const filterOptions = createFilterOptions({
@@ -74,9 +76,7 @@ function Homepage() {
 	return (
 		<div className="homepage">
 			<div className="form">
-				<div className="form-header">
-					{HEADER}
-				</div>
+				<div className="form-header">{HEADER}</div>
 				<div className="form-field-wrapper">
 					{formFieldMeta.map((item) => {
 						return (
