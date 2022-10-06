@@ -3,28 +3,31 @@ import { calculateDistanceHandler, formFieldMeta, HEADER, RESULT } from "./utils
 import AutoComplete from "../../common/AutoComplete";
 import "./Homepage.scss";
 import Map from "../../common/Map/Map";
-import { airport } from "../../data/data";
 import { createFilterOptions } from "@mui/material";
+import { getAirport } from "../../api/airport";
+import _debounce from "lodash/debounce";
 
 function Homepage() {
 	const [formField, setFormField] = useState<any>({});
 	const [map, setMap] = useState<any>(null);
 	const [marker, setMarker] = useState<any>([]);
 	const [options, setOptions] = useState<any>({
-		source: airport,
-		destination: airport,
+		source: [],
+		destination: [],
 	});
 
 	/* OnKeyDown */
 	const onInputChange = async (event: any, key: string) => {
 		let data: any = [];
-		if (key) data = airport.filter((item: any) => item.name.includes(key) || item.iata.includes(key));
+		if (key) data = await getAirport(key);
 		setOptions((state: any) => ({
 			...state,
 			...options,
 			[event.target.id]: data,
 		}));
 	};
+
+	const onInputChangeDebounce = _debounce(onInputChange, 200)
 
 	const setForm = (item: any, value: any) => {
 		setFormField({
@@ -87,7 +90,7 @@ function Homepage() {
 										getOptionLabel: (option: any) => `${option.iata}: ${option.name}`,
 										filterOptions: filterOptions,
 										onChange: (event: any, value: any) => setForm(item, value),
-										onInputChange: onInputChange,
+										onInputChange: onInputChangeDebounce,
 									}}
 								/>
 							</div>
