@@ -28,7 +28,7 @@ function Map({ source, destination, setMap, map }: MapProps) {
 
 	const onUnmount = React.useCallback(function callback(map: any) {
 		setMap(null);
-	}, []);
+	}, [setMap]);
 
 	return isLoaded ? (
 		<div className="map">
