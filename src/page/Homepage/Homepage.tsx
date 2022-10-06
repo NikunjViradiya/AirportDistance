@@ -57,8 +57,9 @@ function Homepage() {
 			if (marker[0]) marker[0].setMap(null);
 		} else if (!formField.destination) {
 			if (marker[1]) marker[1].setMap(null);
-		}
-	}, [JSON.stringify(formField)]);
+		}		
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [JSON.stringify(formField), map]);
 
 	const filterOptions = createFilterOptions({
 		matchFrom: "any",
