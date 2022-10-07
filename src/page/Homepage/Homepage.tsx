@@ -6,21 +6,31 @@ import Map from "../../common/Map/Map";
 import { createFilterOptions } from "@mui/material";
 import { getAirport } from "../../api/airport";
 import _debounce from "lodash/debounce";
-import { airport } from "../../data/data";
 
 function Homepage() {
 	const [formField, setFormField] = useState<any>({});
 	const [map, setMap] = useState<any>(null);
 	const [marker, setMarker] = useState<any>([]);
 	const [options, setOptions] = useState<any>({
-		source: airport,
-		destination: airport,
+		source: [],
+		destination: [],
 	});
+
+	useEffect(() => {
+		const getInitialData = async () => {
+			let data = await getAirport("");
+			setOptions({
+				source: data,
+				destination: data,
+			});
+		};
+		getInitialData();
+	}, []);
 
 	/* OnKeyDown */
 	const onInputChange = async (event: any, key: string) => {
 		let data: any = [];
-		if (key) data = await getAirport(key);
+		data = await getAirport(key);		
 		setOptions((state: any) => ({
 			...state,
 			...options,
@@ -57,7 +67,7 @@ function Homepage() {
 			bounds.extend(marker2.position);
 			map.fitBounds(bounds);
 			setMarker([marker1, marker2]);
-		} 
+		}
 		if (!formField.source) {
 			if (marker[0]) marker[0].setMap(null);
 		}
@@ -69,8 +79,9 @@ function Homepage() {
 
 	const filterOptions = createFilterOptions({
 		matchFrom: "any",
+		ignoreCase: true,
 		stringify: (option: any) => {
-			return option.name.toLowerCase() + option.iata.toLowerCase();
+			return option.name + option.iata;
 		},
 	});
 
