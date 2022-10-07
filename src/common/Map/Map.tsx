@@ -23,7 +23,6 @@ function Map({ source, destination, setMap, map }: MapProps) {
 	const { isLoaded } = useJsApiLoader({
 		id: "google-map-script",
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY || "",
-		libraries: ["places"],
 	});
 
 	const onUnmount = React.useCallback(function callback(map: any) {

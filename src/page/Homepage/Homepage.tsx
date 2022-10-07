@@ -109,11 +109,9 @@ function Homepage() {
 						);
 					})}
 				</div>
-				{formField.source && formField.destination && (
-					<div className="form-footer">
-						<span>{RESULT}</span> {calculateDistanceHandler(formField.source, formField.destination)}
-					</div>
-				)}
+				<div className="form-footer">
+					<span>{RESULT}</span> {calculateDistanceHandler(formField.source, formField.destination) ?? "0"}
+				</div>
 			</div>
 			<Map
 				map={map}

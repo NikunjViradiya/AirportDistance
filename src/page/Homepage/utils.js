@@ -47,5 +47,5 @@ export const calculateDistanceHandler = (airportOneData, airportTwoData) => {
 		const distance = getDistanceFromLatLonInKm(airportOneData.lat, airportOneData.lng, airportTwoData.lat, airportTwoData.lng);
 		return Math.round(distance);
 	}
-	return "";
+	return "0";
 };
