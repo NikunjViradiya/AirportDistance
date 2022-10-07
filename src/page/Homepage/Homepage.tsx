@@ -6,14 +6,15 @@ import Map from "../../common/Map/Map";
 import { createFilterOptions } from "@mui/material";
 import { getAirport } from "../../api/airport";
 import _debounce from "lodash/debounce";
+import { airport } from "../../data/data";
 
 function Homepage() {
 	const [formField, setFormField] = useState<any>({});
 	const [map, setMap] = useState<any>(null);
 	const [marker, setMarker] = useState<any>([]);
 	const [options, setOptions] = useState<any>({
-		source: [],
-		destination: [],
+		source: airport,
+		destination: airport,
 	});
 
 	/* OnKeyDown */
